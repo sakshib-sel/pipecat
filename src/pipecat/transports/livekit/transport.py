@@ -718,9 +718,6 @@ class LiveKitInputTransport(BaseInputTransport):
         self._video_in_task = None
         self._resampler = create_stream_resampler()
 
-        # Whether we have seen a StartFrame already.
-        self._initialized = False
-
     async def setup(self, setup: FrameProcessorSetup):
         """Setup the input transport with shared client setup.
 
@@ -728,11 +725,6 @@ class LiveKitInputTransport(BaseInputTransport):
             setup: The frame processor setup configuration.
         """
         await super().setup(setup)
-
-        if self._initialized:
-            return
-
-        self._initialized = True
 
         await self._client.setup(setup)
 
@@ -907,9 +899,6 @@ class LiveKitOutputTransport(BaseOutputTransport):
         self._transport = transport
         self._client = client
 
-        # Whether we have seen a StartFrame already.
-        self._initialized = False
-
     async def setup(self, setup: FrameProcessorSetup):
         """Setup the output transport with shared client setup.
 
@@ -917,11 +906,6 @@ class LiveKitOutputTransport(BaseOutputTransport):
             setup: The frame processor setup configuration.
         """
         await super().setup(setup)
-
-        if self._initialized:
-            return
-
-        self._initialized = True
 
         await self._client.setup(setup)
 
